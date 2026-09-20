@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Política de Privacidad - CMF Clean Master Free</title>
+    <title>CMF Clean Master Free - Política de Privacidad</title>
     <style>
         /* --- PALETA DE COLORES BASADA EN TU APP --- */
         :root {
@@ -31,6 +31,25 @@
             padding: 20px;
         }
 
+        /* --- BANNER Y LOGO --- */
+        .banner {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .logo-container {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .logo {
+            width: 100px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
         /* --- BARRA DE IDIOMAS --- */
         .language-bar {
             display: flex;
@@ -40,30 +59,34 @@
             font-size: 1.5em;
             background-color: #fff;
             border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         .language-bar span {
             cursor: pointer;
-            opacity: 0.5;
-            transition: opacity 0.3s;
+            opacity: 0.4;
+            transition: opacity 0.3s, transform 0.2s;
         }
         .language-bar span:hover, .language-bar span.active {
             opacity: 1;
+            transform: scale(1.1);
         }
 
         /* --- CABECERA --- */
         header {
             text-align: center;
-            padding: 30px 0 10px;
+            padding: 10px 0;
         }
         header h1 {
             color: var(--azul-principal);
-            font-size: 2em;
+            font-size: 1.8em;
             margin: 0;
             font-weight: 700;
         }
         header p {
             color: var(--texto-gris);
-            font-size: 1.1em;
+            font-size: 1em;
             margin-top: 5px;
         }
 
@@ -78,18 +101,14 @@
         .card h2 {
             color: var(--azul-principal);
             margin-top: 0;
-            font-size: 1.3em;
+            font-size: 1.2em;
             display: flex;
             align-items: center;
             gap: 10px;
         }
         
-        ul {
-            padding-left: 20px;
-        }
-        li {
-            margin-bottom: 8px;
-        }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 8px; }
 
         /* --- BOTONES DE ACCIÓN --- */
         .btn {
@@ -107,20 +126,10 @@
             transition: background 0.3s;
             box-sizing: border-box;
         }
-        .btn-azul {
-            background-color: var(--azul-principal);
-            color: white;
-        }
-        .btn-azul:hover {
-            background-color: var(--azul-oscuro);
-        }
-        .btn-verde {
-            background-color: var(--verde-principal);
-            color: white;
-        }
-        .btn-verde:hover {
-            background-color: #388E3C;
-        }
+        .btn-azul { background-color: var(--azul-principal); color: white; }
+        .btn-azul:hover { background-color: var(--azul-oscuro); }
+        .btn-verde { background-color: var(--verde-principal); color: white; }
+        .btn-verde:hover { background-color: #388E3C; }
 
         /* --- BOTONES DE COMPARTIR --- */
         .share-buttons {
@@ -139,14 +148,12 @@
             border-radius: 50%;
             text-decoration: none;
             color: white;
-            font-size: 1.5em;
+            font-size: 1.3em;
+            font-weight: bold;
             transition: transform 0.2s, opacity 0.2s;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        .share-btn:hover {
-            transform: scale(1.1);
-            opacity: 0.9;
-        }
+        .share-btn:hover { transform: scale(1.1); opacity: 0.9; }
         .share-x { background-color: #000000; }
         .share-facebook { background-color: #1877F2; }
         .share-instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
@@ -164,15 +171,20 @@
         footer {
             text-align: center;
             padding: 20px;
-            font-size: 0.9em;
+            font-size: 0.85em;
             color: var(--texto-gris);
             border-top: 1px solid #e0e0e0;
             margin-top: 30px;
         }
 
+        /* --- IDIOMAS (Ocultar/Mostrar) --- */
+        .lang-content { display: none; }
+        .lang-content.active { display: block; }
+
         @media (max-width: 600px) {
-            header h1 { font-size: 1.5em; }
+            header h1 { font-size: 1.4em; }
             .card { padding: 15px; }
+            .logo { width: 80px; }
         }
     </style>
 </head>
@@ -180,112 +192,237 @@
 
     <!-- Selector de idiomas -->
     <div class="language-bar">
-        <span class="active" title="Español">🇪🇸</span>
-        <span title="English">🇬🇧</span>
-        <span title="Português">🇧🇷</span>
-        <span title="中文">🇨🇳</span>
+        <span onclick="setLang('es')" id="btn-es" class="active" title="Español">🇪🇸</span>
+        <span onclick="setLang('en')" id="btn-en" title="English">🇬🇧</span>
+        <span onclick="setLang('pt')" id="btn-pt" title="Português">🇧🇷</span>
+        <span onclick="setLang('zh')" id="btn-zh" title="中文">🇨🇳</span>
     </div>
 
     <div class="container">
         
-        <!-- CABECERA -->
-        <header>
-            <h1>CMF Clean Master Free</h1>
-            <p>Monitorización y limpieza de almacenamiento</p>
-        </header>
+        <!-- BANNER -->
+        <img src="limpieza1.png" alt="Banner CMF Clean Master Free" class="banner">
 
-        <!-- INTRODUCCIÓN -->
-        <div class="card">
-            <h2>🧹 Limpiador Exprés</h2>
-            <p>Mantén tu dispositivo limpio y libera espacio de forma sencilla.</p>
-            <p>Esta aplicación te ayuda a localizar archivos que ya no necesitas para que puedas revisarlos y eliminarlos fácilmente. Puedes gestionar imágenes, vídeos, música, audios de voz, documentos y otros archivos almacenados en tu dispositivo.</p>
+        <!-- LOGO -->
+        <div class="logo-container">
+            <img src="limpieza.png" alt="Logo MaxStudio" class="logo">
         </div>
 
-        <!-- FUNCIONES -->
-        <div class="card">
-            <h2>⚙️ Funciones principales</h2>
-            <ul>
-                <li>Buscar archivos innecesarios.</li>
-                <li>Revisar imágenes almacenadas.</li>
-                <li>Localizar vídeos que ocupan mucho espacio.</li>
-                <li>Gestionar música y archivos de audio.</li>
-                <li>Revisar audios de voz.</li>
-                <li>Gestionar documentos y otros archivos.</li>
-                <li>Liberar espacio de almacenamiento.</li>
-                <li>Interfaz sencilla y fácil de usar.</li>
-            </ul>
-        </div>
+        <!-- ==================== ESPAÑOL ==================== -->
+        <div id="content-es" class="lang-content active">
+            <header>
+                <h1>CMF Clean Master Free</h1>
+                <p>Monitorización y limpieza de almacenamiento</p>
+            </header>
 
-        <!-- POLÍTICA DE PRIVACIDAD -->
-        <div class="card">
-            <h2>🔒 Política de Privacidad</h2>
-            <p><strong>Última actualización:</strong> 20 de septiembre de 2026</p>
-            <p>La aplicación está diseñada para que tengas mayor control sobre el almacenamiento de tu móvil y puedas decidir qué archivos quieres conservar y cuáles eliminar.</p>
-            <p><strong>No necesitas crear una cuenta ni registrarte para utilizar la aplicación.</strong></p>
-            <p>Tus archivos permanecen en tu dispositivo y eres tú quien decide qué contenido eliminar.</p>
+            <div class="card">
+                <h2>🧹 Limpiador Exprés</h2>
+                <p>Mantén tu dispositivo limpio y libera espacio de forma sencilla. Esta aplicación te ayuda a localizar archivos que ya no necesitas para que puedas revisarlos y eliminarlos fácilmente.</p>
+                <ul>
+                    <li>Buscar archivos innecesarios.</li>
+                    <li>Revisar imágenes, vídeos y audios.</li>
+                    <li>Gestionar música y documentos.</li>
+                    <li>Liberar espacio de almacenamiento.</li>
+                    <li>Interfaz sencilla y fácil de usar.</li>
+                </ul>
+            </div>
 
-            <h3>Información que NO recopilamos</h3>
-            <p>CMF Clean Master Free <strong>no recopila, almacena ni comparte</strong> ningún tipo de información personal o de uso. Específicamente:</p>
-            <ul>
-                <li>No recopilamos nombres, correos, teléfonos ni datos personales.</li>
-                <li>No accedemos a tu ubicación GPS.</li>
-                <li>No leemos tus contactos, mensajes o llamadas.</li>
-                <li>No usamos identificadores de publicidad ni analíticas.</li>
-                <li>No integramos servicios de terceros que rastreen tu actividad.</li>
-            </ul>
+            <div class="card">
+                <h2>🔒 Política de Privacidad</h2>
+                <p><strong>Última actualización:</strong> 20 de septiembre de 2026</p>
+                <p>CMF Clean Master Free <strong>no recopila, almacena ni comparte</strong> ningún tipo de información personal. No necesitas crear una cuenta ni registrarte.</p>
+                <p><strong>Información que NO recopilamos:</strong></p>
+                <ul>
+                    <li>Datos personales (nombre, correo, teléfono).</li>
+                    <li>Ubicación GPS.</li>
+                    <li>Contactos, mensajes o llamadas.</li>
+                    <li>Identificadores de publicidad o analíticas.</li>
+                </ul>
+                <p><strong>Permisos:</strong> Solo se solicitan permisos de almacenamiento para funcionar localmente. Ninguna información se transmite a servidores externos.</p>
+                <div class="contacto">
+                    <p><strong>Desarrollador:</strong> MaxStudio</p>
+                    <p><strong>Contacto:</strong> maxi1985_19@hotmail.com</p>
+                </div>
+            </div>
 
-            <h3>Permisos</h3>
-            <p>La app puede solicitar permisos de almacenamiento únicamente para funcionar localmente en tu dispositivo. <strong>Ninguna información se transmite a servidores externos.</strong></p>
-
-            <h3>Seguridad y Menores</h3>
-            <p>Aunque no recopilamos información, implementamos medidas para garantizar un funcionamiento seguro. La app es apta para todos los públicos.</p>
-
-            <div class="contacto">
-                <p><strong>Desarrollador:</strong> MaxStudio</p>
-                <p><strong>Contacto:</strong> maxi1985_19@hotmail.com</p>
+            <div class="card">
+                <h2>📱 Acciones</h2>
+                <a href="#" class="btn btn-azul">Descargar en Google Play</a>
+                <a href="mailto:maxi1985_19@hotmail.com" class="btn btn-verde">Contactar Soporte</a>
             </div>
         </div>
 
-        <!-- BOTONES DE ACCIÓN -->
-        <div class="card">
-            <h2>📱 Acciones</h2>
-            <a href="#" class="btn btn-azul">Descargar en Google Play</a>
-            <a href="mailto:maxi1985_19@hotmail.com" class="btn btn-verde">Contactar Soporte</a>
+        <!-- ==================== ENGLISH ==================== -->
+        <div id="content-en" class="lang-content">
+            <header>
+                <h1>CMF Clean Master Free</h1>
+                <p>Storage monitoring and cleaning</p>
+            </header>
+
+            <div class="card">
+                <h2>🧹 Express Cleaner</h2>
+                <p>Keep your device clean and free up space easily. This app helps you locate files you no longer need so you can review and delete them easily.</p>
+                <ul>
+                    <li>Find unnecessary files.</li>
+                    <li>Review images, videos and audio.</li>
+                    <li>Manage music and documents.</li>
+                    <li>Free up storage space.</li>
+                    <li>Simple and easy-to-use interface.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>🔒 Privacy Policy</h2>
+                <p><strong>Last updated:</strong> September 20, 2026</p>
+                <p>CMF Clean Master Free <strong>does not collect, store or share</strong> any personal information. You don't need to create an account or register.</p>
+                <p><strong>Information we DO NOT collect:</strong></p>
+                <ul>
+                    <li>Personal data (name, email, phone).</li>
+                    <li>GPS location.</li>
+                    <li>Contacts, messages or calls.</li>
+                    <li>Advertising or analytics identifiers.</li>
+                </ul>
+                <p><strong>Permissions:</strong> Only storage permissions are requested to work locally. No information is transmitted to external servers.</p>
+                <div class="contacto">
+                    <p><strong>Developer:</strong> MaxStudio</p>
+                    <p><strong>Contact:</strong> maxi1985_19@hotmail.com</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>📱 Actions</h2>
+                <a href="#" class="btn btn-azul">Download on Google Play</a>
+                <a href="mailto:maxi1985_19@hotmail.com" class="btn btn-verde">Contact Support</a>
+            </div>
         </div>
 
-        <!-- SECCIÓN DE COMPARTIR -->
+        <!-- ==================== PORTUGUÊS (BRASIL) ==================== -->
+        <div id="content-pt" class="lang-content">
+            <header>
+                <h1>CMF Clean Master Free</h1>
+                <p>Monitoramento e limpeza de armazenamento</p>
+            </header>
+
+            <div class="card">
+                <h2>🧹 Limpador Expresso</h2>
+                <p>Mantenha seu dispositivo limpo e libere espaço facilmente. Este aplicativo ajuda você a localizar arquivos que não precisa mais para revisá-los e excluí-los facilmente.</p>
+                <ul>
+                    <li>Encontrar arquivos desnecessários.</li>
+                    <li>Revisar imagens, vídeos e áudios.</li>
+                    <li>Gerenciar músicas e documentos.</li>
+                    <li>Liberar espaço de armazenamento.</li>
+                    <li>Interface simples e fácil de usar.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>🔒 Política de Privacidade</h2>
+                <p><strong>Última atualização:</strong> 20 de setembro de 2026</p>
+                <p>CMF Clean Master Free <strong>não coleta, armazena ou compartilha</strong> nenhuma informação pessoal. Você não precisa criar uma conta ou se registrar.</p>
+                <p><strong>Informações que NÃO coletamos:</strong></p>
+                <ul>
+                    <li>Dados pessoais (nome, e-mail, telefone).</li>
+                    <li>Localização GPS.</li>
+                    <li>Contatos, mensagens ou chamadas.</li>
+                    <li>Identificadores de publicidade ou analíticos.</li>
+                </ul>
+                <p><strong>Permissões:</strong> Apenas permissões de armazenamento são solicitadas para funcionar localmente. Nenhuma informação é transmitida para servidores externos.</p>
+                <div class="contacto">
+                    <p><strong>Desenvolvedor:</strong> MaxStudio</p>
+                    <p><strong>Contato:</strong> maxi1985_19@hotmail.com</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>📱 Ações</h2>
+                <a href="#" class="btn btn-azul">Baixar no Google Play</a>
+                <a href="mailto:maxi1985_19@hotmail.com" class="btn btn-verde">Contatar Suporte</a>
+            </div>
+        </div>
+
+        <!-- ==================== 中文 (CHINO) ==================== -->
+        <div id="content-zh" class="lang-content">
+            <header>
+                <h1>CMF Clean Master Free</h1>
+                <p>存储监控与清理</p>
+            </header>
+
+            <div class="card">
+                <h2>🧹 快速清理</h2>
+                <p>轻松保持设备清洁并释放空间。此应用可帮助您查找不再需要的文件，以便轻松查看和删除它们。</p>
+                <ul>
+                    <li>查找不必要的文件。</li>
+                    <li>查看图片、视频和音频。</li>
+                    <li>管理音乐和文档。</li>
+                    <li>释放存储空间。</li>
+                    <li>界面简单易用。</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>🔒 隐私政策</h2>
+                <p><strong>最后更新：</strong> 2026年9月20日</p>
+                <p>CMF Clean Master Free <strong>不收集、存储或共享</strong>任何个人信息。您无需创建账户或注册。</p>
+                <p><strong>我们不收集的信息：</strong></p>
+                <ul>
+                    <li>个人数据（姓名、电子邮件、电话）。</li>
+                    <li>GPS 位置。</li>
+                    <li>联系人、消息或通话记录。</li>
+                    <li>广告或分析标识符。</li>
+                </ul>
+                <p><strong>权限：</strong> 仅请求存储权限以在本地运行。不会向外部服务器传输任何信息。</p>
+                <div class="contacto">
+                    <p><strong>开发者：</strong> MaxStudio</p>
+                    <p><strong>联系方式：</strong> maxi1985_19@hotmail.com</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>📱 操作</h2>
+                <a href="#" class="btn btn-azul">在 Google Play 下载</a>
+                <a href="mailto:maxi1985_19@hotmail.com" class="btn btn-verde">联系支持</a>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE COMPARTIR (Común a todos los idiomas) -->
         <div class="card" style="text-align: center;">
-            <h2 style="justify-content: center;">📢 Comparte esta página</h2>
-            <p style="color: var(--texto-gris); margin-bottom: 10px;">Ayúdanos a llegar a más usuarios compartiendo en tus redes sociales.</p>
+            <h2 style="justify-content: center;">📢 Compartir / Share / Compartilhar / 分享</h2>
             
             <div class="share-buttons">
-                <!-- Botón X (Twitter) -->
-                <a href="https://twitter.com/intent/tweet?text=Descubre%20CMF%20Clean%20Master%20Free,%20la%20app%20para%20limpiar%20tu%20dispositivo%20f%C3%A1cilmente.%20Mira%20su%20pol%C3%ADtica%20de%20privacidad%20aqu%C3%AD:&url=https://maxstudiotoken.github.io/CMF-Clean-Master-Free/" target="_blank" class="share-btn share-x" title="Compartir en X">
-                    𝕏
-                </a>
+                <!-- X (Twitter) -->
+                <a href="https://twitter.com/intent/tweet?text=CMF%20Clean%20Master%20Free%20-%20Limpia%20tu%20dispositivo%20f%C3%A1cilmente&url=https://maxstudiotoken.github.io/CMF-Clean-Master-Free/" target="_blank" class="share-btn share-x" title="Compartir en X">𝕏</a>
                 
-                <!-- Botón Facebook -->
-                <a href="https://www.facebook.com/sharer/sharer.php?u=https://maxstudiotoken.github.io/CMF-Clean-Master-Free/" target="_blank" class="share-btn share-facebook" title="Compartir en Facebook">
-                    f
-                </a>
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://maxstudiotoken.github.io/CMF-Clean-Master-Free/" target="_blank" class="share-btn share-facebook" title="Compartir en Facebook">f</a>
                 
-                <!-- Botón Instagram (Nota: Instagram no permite compartir enlaces directos, así que abre tu perfil) -->
-                <a href="https://www.instagram.com/" target="_blank" class="share-btn share-instagram" title="Síguenos en Instagram">
-                    📷
-                </a>
+                <!-- Instagram (Abre tu perfil) -->
+                <a href="https://www.instagram.com/" target="_blank" class="share-btn share-instagram" title="Síguenos en Instagram">📷</a>
 
-                <!-- Botón WhatsApp (Opcional, muy útil) -->
-                <a href="https://api.whatsapp.com/send?text=Descubre%20CMF%20Clean%20Master%20Free:%20https://maxstudiotoken.github.io/CMF-Clean-Master-Free/" target="_blank" class="share-btn share-whatsapp" title="Compartir en WhatsApp">
-                    💬
-                </a>
+                <!-- WhatsApp -->
+                <a href="https://api.whatsapp.com/send?text=CMF%20Clean%20Master%20Free:%20https://maxstudiotoken.github.io/CMF-Clean-Master-Free/" target="_blank" class="share-btn share-whatsapp" title="Compartir en WhatsApp">💬</a>
             </div>
         </div>
 
         <footer>
-            <p>&copy; 2026 MaxStudio - CMF Clean Master Free. Todos los derechos reservados.</p>
+            <p>&copy; 2026 MaxStudio - CMF Clean Master Free. All rights reserved.</p>
         </footer>
 
     </div>
+
+    <!-- SCRIPT PARA CAMBIAR IDIOMA -->
+    <script>
+        function setLang(lang) {
+            // Ocultar todos los contenidos
+            document.querySelectorAll('.lang-content').forEach(el => el.classList.remove('active'));
+            // Quitar active de todas las banderas
+            document.querySelectorAll('.language-bar span').forEach(el => el.classList.remove('active'));
+            
+            // Mostrar el contenido seleccionado
+            document.getElementById('content-' + lang).classList.add('active');
+            // Activar la bandera seleccionada
+            document.getElementById('btn-' + lang).classList.add('active');
+        }
+    </script>
 
 </body>
 </html>
